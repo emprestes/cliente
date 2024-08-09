@@ -41,6 +41,18 @@
   </dependency>
   <dependency>
    <groupId>br.cliente</groupId>
+   <artifactId>cliente-repository-filesystem</artifactId>
+   <version>${project.version}</version>
+   <scope>runtime</scope>
+  </dependency>
+  <dependency>
+   <groupId>br.cliente</groupId>
+   <artifactId>cliente-service-impl</artifactId>
+   <version>${project.version}</version>
+   <scope>runtime</scope>
+  </dependency>
+  <dependency>
+   <groupId>br.cliente</groupId>
    <artifactId>cliente-facade</artifactId>
    <version>${project.version}</version>
   </dependency>

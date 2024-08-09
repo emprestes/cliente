@@ -10,8 +10,15 @@ import facade.impl.UFFacade;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.TextField;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,12 +54,12 @@ public class MunicipioController extends AbstractController {
 
     @FXML
     public void initialize() {
+        initFacades();
         initView();
         initActions();
-        initServices();
     }
 
-    private void initServices() {
+    private void initFacades() {
         facade = new MunicipioFacade();
         ufFacade = new UFFacade();
     }
