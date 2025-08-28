@@ -1,19 +1,26 @@
 package repository.io;
 
+import domain.exception.MunicipioException;
+import domain.model.Municipio;
+import domain.model.UFVO;
+import repository.MunicipioDAO;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Set;
 import java.util.TreeSet;
 
-import repository.MunicipioDAO;
-import domain.exception.MunicipioException;
-import domain.model.Municipio;
-import domain.model.UFVO;
-
+/**
+ * Implementação de {@link MunicipioDAO} utilizando arquivos texto como fonte de dados.
+ */
 public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
 
+    /**
+     * Nome do arquivo de armazenamento dos municípios.
+     */
     public static final String FILE_NAME = "municipio.txt";
 
+    /** {@inheritDoc} */
     @Override
     public void inserir(Municipio domain) throws MunicipioException {
         try (RandomAccessFile source = DataSource.openWriteableFile(FILE_NAME)) {
@@ -38,7 +45,7 @@ public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
                     line = source.readLine();
                     fields = line.split(CSV_SPLIT_REGEX);
                     found = new Municipio(
-                            fields[Fields.Municipio.NOME.ordinal()], 
+                            fields[Fields.Municipio.NOME.ordinal()],
                             fields[Fields.Municipio.UF.ordinal()]);
 
                     content.append(line).append(NEW_LINE);
@@ -63,6 +70,7 @@ public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void atualizar(Municipio domain) throws MunicipioException {
         try (RandomAccessFile source = DataSource.openWriteableFile(FILE_NAME)) {
@@ -107,6 +115,7 @@ public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void apagar(Municipio domain) throws MunicipioException {
         try (RandomAccessFile source = DataSource.openWriteableFile(FILE_NAME)) {
@@ -145,6 +154,7 @@ public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Set<Municipio> selecionar(UFVO uf) throws MunicipioException {
         try (RandomAccessFile source = DataSource.openWriteableFile(FILE_NAME)) {
@@ -168,9 +178,9 @@ public class FileMunicipioDAO extends FileDAO implements MunicipioDAO {
 
                     if (UFVO.valueOf(field).equals(uf)) {
                         municipio = new Municipio(fields[Fields.Municipio.NOME.ordinal()], uf);
-    
+
                         municipio.setId(Integer.valueOf(fields[Fields.Municipio.ID.ordinal()]));
-    
+
                         municipios.add(municipio);
                     }
 

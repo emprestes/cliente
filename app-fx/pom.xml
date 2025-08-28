@@ -26,17 +26,17 @@
 
  <dependencies>
   <dependency>
-   <groupId>br.cliente</groupId>
+      <groupId>${project.parent.groupId}</groupId>
    <artifactId>cliente-core</artifactId>
    <version>${project.version}</version>
   </dependency>
   <dependency>
-   <groupId>br.cliente</groupId>
+      <groupId>${project.parent.groupId}</groupId>
    <artifactId>cliente-repository-filesystem</artifactId>
    <version>${project.version}</version>
   </dependency>
   <dependency>
-   <groupId>br.cliente</groupId>
+      <groupId>${project.parent.groupId}</groupId>
    <artifactId>cliente-service-impl</artifactId>
    <version>${project.version}</version>
   </dependency>
@@ -48,7 +48,7 @@
   <dependency>
    <groupId>org.hsqldb</groupId>
    <artifactId>hsqldb</artifactId>
-   <version>2.3.2</version>
+      <version>2.7.1</version>
    <scope>provided</scope>
   </dependency>
  </dependencies>
