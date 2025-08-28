@@ -1,14 +1,21 @@
 package repository.jdbc;
 
+import domain.model.Entidade;
+import repository.DAO;
+import repository.exception.DatabaseException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import repository.DAO;
-import repository.exception.DatabaseException;
-import domain.model.Entidade;
-
+/**
+ * Implementação base para DAOs JDBC, com operações comuns de inserção,
+ * atualização e exclusão e pontos de extensão para consultas específicas.
+ *
+ * @param <T> tipo da entidade de domínio
+ * @param <E> tipo da exceção de persistência
+ */
 abstract class JdbcDAO<T extends Entidade<?, E>, E extends Throwable> implements DAO<T, E> {
 
     protected abstract E getFailInsert();
@@ -20,6 +27,9 @@ abstract class JdbcDAO<T extends Entidade<?, E>, E extends Throwable> implements
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void inserir(T domain) throws E {
         Connection c;
@@ -68,9 +78,10 @@ abstract class JdbcDAO<T extends Entidade<?, E>, E extends Throwable> implements
     protected abstract String getSQLUpdate();
     protected abstract void prepareStatementUpdate(PreparedStatement query, final T domain) throws SQLException;
 
+    /** {@inheritDoc} */
     @Override
     public void atualizar(T domain) throws E {
-        try (Connection c = DataSource.openConnection(); 
+        try (Connection c = DataSource.openConnection();
              PreparedStatement ps = c.prepareStatement(getSQLUpdate());) {
 
             prepareStatementUpdate(ps, domain);
@@ -89,9 +100,10 @@ abstract class JdbcDAO<T extends Entidade<?, E>, E extends Throwable> implements
     protected abstract String getSQLDelete();
     protected abstract void prepareStatementDelete(PreparedStatement query, final T domain) throws SQLException;
 
+    /** {@inheritDoc} */
     @Override
     public void apagar(T domain) throws E {
-        try (Connection c = DataSource.openConnection(); 
+        try (Connection c = DataSource.openConnection();
              PreparedStatement ps = c.prepareStatement(getSQLDelete());) {
 
             prepareStatementDelete(ps, domain);

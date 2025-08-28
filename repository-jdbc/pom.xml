@@ -11,12 +11,12 @@
 
  <dependencies>
   <dependency>
-   <groupId>br.cliente</groupId>
+      <groupId>${project.parent.groupId}</groupId>
    <artifactId>cliente-core</artifactId>
    <version>${project.version}</version>
   </dependency>
   <dependency>
-   <groupId>br.cliente</groupId>
+      <groupId>${project.parent.groupId}</groupId>
    <artifactId>cliente-repository-api</artifactId>
    <version>${project.version}</version>
   </dependency>

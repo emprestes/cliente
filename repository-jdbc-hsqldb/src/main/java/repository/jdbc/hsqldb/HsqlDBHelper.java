@@ -1,13 +1,16 @@
 package repository.jdbc.hsqldb;
 
+import org.hsqldb.Server;
+
 import java.io.FileReader;
 import java.io.Reader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-import org.hsqldb.Server;
-
+/**
+ * Utilitários para controle de um servidor HSQLDB embutido durante o desenvolvimento/testes.
+ */
 public final class HsqlDBHelper {
 
     private static Server HSQL_SERVER = new Server();
@@ -19,6 +22,11 @@ public final class HsqlDBHelper {
         super();
     }
 
+    /**
+     * Inicia o servidor HSQLDB utilizando a base informada quando a configuração ativa for HSQLDB.
+     *
+     * @param database nome da base de dados
+     */
     public static void startServer(String database) {
         if (isHsqlDB()) {
             HSQL_SERVER.setLogWriter(null);
@@ -30,6 +38,11 @@ public final class HsqlDBHelper {
         }
     }
 
+    /**
+     * Verifica se a configuração ativa refere-se ao HSQLDB.
+     *
+     * @return {@code true} quando o banco configurado é HSQLDB
+     */
     public static boolean isHsqlDB() {
         Properties p = new Properties();
         String database = null;
@@ -45,6 +58,9 @@ public final class HsqlDBHelper {
         return "hsqldb".equalsIgnoreCase(database);
     }
 
+    /**
+     * Interrompe o servidor HSQLDB quando ativo.
+     */
     public static void stopServer() {
         if (isHsqlDB()) {
             HSQL_SERVER.stop();

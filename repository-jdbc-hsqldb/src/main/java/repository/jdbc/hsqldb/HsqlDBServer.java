@@ -1,7 +1,15 @@
 package repository.jdbc.hsqldb;
 
+/**
+ * Aplicação utilitária para iniciar/parar o servidor HSQLDB via linha de comando.
+ */
 public final class HsqlDBServer {
 
+    /**
+     * Ponto de entrada do utilitário.
+     *
+     * @param args argumentos (start|stop) e nome da base (opcional)
+     */
     public static void main(String[] args) {
         String command, database;
 
