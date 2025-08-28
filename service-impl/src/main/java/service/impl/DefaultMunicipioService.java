@@ -11,7 +11,7 @@ import domain.model.UFVO;
 
 public class DefaultMunicipioService extends DefaultService<Municipio, MunicipioException> implements MunicipioService {
 
-    private MunicipioDAO dao;
+    private final MunicipioDAO dao;
 
     public DefaultMunicipioService() {
         this(FactoryDAO.createMunicipioDAO());
