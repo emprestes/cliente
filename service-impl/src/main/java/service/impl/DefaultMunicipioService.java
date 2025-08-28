@@ -17,7 +17,7 @@ public class DefaultMunicipioService extends DefaultService<Municipio, Municipio
     /**
      * DAO de municípios utilizado pelo serviço.
      */
-    private MunicipioDAO dao;
+    private final MunicipioDAO dao;
 
     /**
      * Cria o serviço utilizando a fábrica padrão de DAOs.
