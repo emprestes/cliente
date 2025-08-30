@@ -7,22 +7,24 @@ import service.Service;
 /**
  * Implementação base para serviços que delegam persistência a um {@link DAO}.
  *
- * @param <T> tipo da entidade de domínio
- * @param <E> tipo da exceção de regra/persistência
+ * @param <PK> tipo do identificador da entidade
+ * @param <T>  tipo da entidade de domínio
+ * @param <E>  tipo da exceção de regra/persistência
  */
-abstract class DefaultService<T extends Domain<?, E>, E extends Throwable> implements Service<T, E> {
+abstract class DefaultService<PK, T extends Domain<PK, E>, E extends Throwable>
+        implements Service<PK, T, E> {
 
     /**
      * DAO responsável pela persistência.
      */
-    private DAO<T, E> dao;
+    private DAO<PK, T, E> dao;
 
     /**
      * Cria um serviço padrão com o DAO informado.
      *
      * @param dao implementação de acesso a dados
      */
-    protected DefaultService(DAO<T, E> dao) {
+    protected DefaultService(DAO<PK, T, E> dao) {
         super();
 
         this.dao = dao;

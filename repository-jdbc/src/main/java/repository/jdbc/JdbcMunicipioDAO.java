@@ -1,5 +1,11 @@
 package repository.jdbc;
 
+import domain.exception.MunicipioException;
+import domain.model.Municipio;
+import domain.model.UFVO;
+import repository.MunicipioDAO;
+import repository.exception.DatabaseException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,13 +13,7 @@ import java.sql.SQLException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import repository.MunicipioDAO;
-import repository.exception.DatabaseException;
-import domain.exception.MunicipioException;
-import domain.model.Municipio;
-import domain.model.UFVO;
-
-public class JdbcMunicipioDAO extends JdbcDAO<Municipio, MunicipioException> implements MunicipioDAO {
+public class JdbcMunicipioDAO extends JdbcDAO<Integer, Municipio, MunicipioException> implements MunicipioDAO {
 
     private static final String SCRIPT_DDL = "/repository/jdbc/municipio.ddl";
 
@@ -106,7 +106,7 @@ public class JdbcMunicipioDAO extends JdbcDAO<Municipio, MunicipioException> imp
     public Set<Municipio> selecionar(UFVO uf) throws MunicipioException {
         final String sql = "SELECT id_municipio, nm_municipio FROM municipio WHERE id_uf = ?";
 
-        try (Connection c = DataSource.openConnection(); 
+        try (Connection c = DataSource.openConnection();
              PreparedStatement ps = c.prepareStatement(sql);) {
             final Set<Municipio> municipios = new TreeSet<>();
             final ResultSet rs;
@@ -129,7 +129,7 @@ public class JdbcMunicipioDAO extends JdbcDAO<Municipio, MunicipioException> imp
             return municipios;
         } catch (SQLException | DatabaseException cause) {
             throw new MunicipioException(
-                    "PROBLEMAS AO SELECIONAR MUNICÍPIOS NA BANCO DE DADOS!", 
+                    "PROBLEMAS AO SELECIONAR MUNICÍPIOS NA BANCO DE DADOS!",
                     cause);
         }
     }

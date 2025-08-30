@@ -1,5 +1,7 @@
 package app.fx.controller;
 
+import app.fx.api.Controller;
+import app.fx.util.FXMLHelper;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -7,20 +9,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
-import app.fx.api.Controller;
-import app.fx.util.FXMLHelper;
-
+/**
+ * Base para controllers JavaFX com utilitários de status e navegação.
+ */
 @SuppressWarnings("deprecation")
 abstract class AbstractController implements Controller {
 
+    /**
+     * Rótulo de status exibido na barra inferior (FXML).
+     */
     @FXML
     private Label statusLabel;
 
+    /** Stage associado a este controller. */
     private Stage stage;
 
     @Override
@@ -29,8 +34,8 @@ abstract class AbstractController implements Controller {
     }
 
     @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStage(final Stage pStage) {
+        this.stage = pStage;
     }
 
     protected Scene getScene() {
@@ -42,13 +47,25 @@ abstract class AbstractController implements Controller {
         return (V) getScene().getRoot();
     }
 
-    protected void setStatus(String format, Object... values) {
+    /**
+     * Atualiza o status formatando a mensagem com parâmetros.
+     *
+     * @param format padrão da mensagem
+     * @param values parâmetros a aplicar no formato
+     */
+    protected void setStatus(final String format, final Object... values) {
         setStatus(String.format(format, values));
     }
 
-    protected void setStatus(String message) {
-        if (statusLabel == null)
+    /**
+     * Atualiza o status diretamente.
+     *
+     * @param message mensagem a exibir
+     */
+    protected void setStatus(final String message) {
+        if (statusLabel == null) {
             statusLabel = (Label) stage.getScene().lookup("#statusLabel");
+        }
 
         statusLabel.setText(message);
     }
@@ -61,10 +78,19 @@ abstract class AbstractController implements Controller {
         setStatus("Feito!");
     }
 
-    protected void loadView(String viewTitle, String view, String... styles) throws Exception {
+    /**
+     * Carrega uma nova view (FXML) ao centro do layout principal.
+     *
+     * @param viewTitle título da visão
+     * @param view      caminho do FXML
+     * @param styles    estilos (CSS) opcionais
+     * @throws Exception quando ocorre falha no carregamento
+     */
+    protected void loadView(final String viewTitle, final String view,
+                            final String... styles) throws Exception {
         BorderPane root = getRoot();
-        Stage stage = getStage();
-        Parent v = FXMLHelper.createView(stage, viewTitle, view, styles);
+        Stage s = getStage();
+        Parent v = FXMLHelper.createView(s, viewTitle, view, styles);
 
         root.setCenter(v);
         done();
@@ -74,7 +100,12 @@ abstract class AbstractController implements Controller {
         stage.close();
     }
 
-    protected void confirmAndClose(Event event) {
+    /**
+     * Pede confirmação do usuário antes de fechar a janela.
+     *
+     * @param event evento de fechamento
+     */
+    protected void confirmAndClose(final Event event) {
         Action a = Dialogs
                 .create()
                 .title(stage.getTitle())

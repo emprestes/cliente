@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * DAO específico para operações com {@link Municipio}.
  */
-public interface MunicipioDAO extends DAO<Municipio, MunicipioException> {
+public interface MunicipioDAO extends DAO<Integer, Municipio, MunicipioException> {
 
     /**
      * Seleciona os municípios pertencentes à UF informada.

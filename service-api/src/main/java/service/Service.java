@@ -5,10 +5,11 @@ import domain.Domain;
 /**
  * Contrato base para serviços de aplicação que manipulam entidades de domínio.
  *
- * @param <T> tipo da entidade de domínio
- * @param <E> tipo da exceção de regra/validação
+ * @param <PK> tipo do identificador da entidade
+ * @param <T>  tipo da entidade de domínio
+ * @param <E>  tipo da exceção de regra/validação
  */
-public interface Service<T extends Domain<?, ? extends Throwable>, E extends Throwable> {
+public interface Service<PK, T extends Domain<PK, E>, E extends Throwable> {
 
     /**
      * Valida a entidade segundo as regras de negócio.

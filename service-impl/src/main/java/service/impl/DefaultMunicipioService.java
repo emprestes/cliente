@@ -12,7 +12,8 @@ import java.util.Collection;
 /**
  * Implementação padrão do serviço de municípios.
  */
-public class DefaultMunicipioService extends DefaultService<Municipio, MunicipioException> implements MunicipioService {
+public class DefaultMunicipioService extends DefaultService<Integer, Municipio, MunicipioException>
+        implements MunicipioService {
 
     /**
      * DAO de municípios utilizado pelo serviço.

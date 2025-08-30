@@ -47,8 +47,9 @@ final class DataSource {
      * @throws IOException caso ocorra erro no fechamento
      */
     public static void close(RandomAccessFile file) throws IOException {
-        if (file != null)
+        if (file != null) {
             file.close();
+        }
     }
 
     /**

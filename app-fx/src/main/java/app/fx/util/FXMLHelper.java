@@ -8,33 +8,92 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-final public class FXMLHelper {
+/**
+ * Helper para construção de {@link Scene} e carregamento de FXML.
+ */
+public final class FXMLHelper {
 
     private FXMLHelper() {
         super();
     }
 
-    public static Scene createScene(Stage stage, String viewTitle, String view, String... styles) throws Exception {
+    /**
+     * Cria uma cena carregando um FXML por caminho relativo.
+     *
+     * @param stage     janela alvo
+     * @param viewTitle título da visão
+     * @param view      caminho do recurso FXML
+     * @param styles    estilos (CSS) opcionais
+     * @return cena criada
+     * @throws Exception quando ocorre falha no carregamento
+     */
+    public static Scene createScene(final Stage stage,
+                                    final String viewTitle,
+                                    final String view,
+                                    final String... styles) throws Exception {
         URL v = getResource(view);
         URL[] s = getResources(styles);
 
         return createScene(stage, viewTitle, v, s);
     }
 
-    public static Scene createScene(Stage stage, String viewTitle, URL view, URL... styles) throws Exception {
+    /**
+     * Cria uma cena a partir de um recurso FXML já resolvido.
+     *
+     * @param stage     janela alvo
+     * @param viewTitle título da visão
+     * @param view      recurso FXML
+     * @param styles    estilos (CSS) opcionais
+     * @return cena criada
+     * @throws Exception quando ocorre falha no carregamento
+     */
+    public static Scene createScene(final Stage stage,
+                                    final String viewTitle,
+                                    final URL view,
+                                    final URL... styles) throws Exception {
         Parent root = createView(stage, viewTitle, view, styles);
 
         return new Scene(root);
     }
 
-    public static <V extends Parent> V createView(Stage stage, String viewTitle, String view, String... styles) throws Exception {
+    /**
+     * Cria a raiz de uma visão carregando um FXML por caminho relativo.
+     *
+     * @param <V>       tipo da raiz (Parent)
+     * @param stage     janela alvo
+     * @param viewTitle título da visão
+     * @param view      caminho do FXML
+     * @param styles    estilos (CSS) opcionais
+     * @return raiz carregada
+     * @throws Exception quando ocorre falha no carregamento
+     */
+    public static <V extends Parent> V createView(final Stage stage,
+                                                  final String viewTitle,
+                                                  final String view,
+                                                  final String... styles)
+            throws Exception {
         URL v = getResource(view);
         URL[] s = getResources(styles);
 
         return createView(stage, viewTitle, v, s);
     }
 
-    public static <V extends Parent> V createView(Stage stage, String viewTitle, URL view, URL... styles) throws Exception {
+    /**
+     * Cria a raiz de uma visão a partir de um recurso FXML resolvido.
+     *
+     * @param <V>       tipo da raiz (Parent)
+     * @param stage     janela alvo
+     * @param viewTitle título da visão
+     * @param view      recurso FXML
+     * @param styles    estilos (CSS) opcionais
+     * @return raiz carregada
+     * @throws Exception quando ocorre falha no carregamento
+     */
+    public static <V extends Parent> V createView(final Stage stage,
+                                                  final String viewTitle,
+                                                  final URL view,
+                                                  final URL... styles)
+            throws Exception {
         FXMLLoader fxml;
         Controller controller;
         V root;
@@ -44,8 +103,9 @@ final public class FXMLHelper {
         controller = fxml.getController();
 
         for (URL style : styles) {
-            if (style != null)
+            if (style != null) {
                 root.getStylesheets().add(style.toExternalForm());
+            }
         }
 
         stage.setTitle(viewTitle);
@@ -55,11 +115,23 @@ final public class FXMLHelper {
         return root;
     }
 
-    private static URL getResource(String r) {
+    /**
+     * Resolve um recurso relativo ao helper.
+     *
+     * @param r caminho do recurso
+     * @return URL do recurso ou {@code null}
+     */
+    private static URL getResource(final String r) {
         return FXMLHelper.class.getResource(r);
     }
 
-    private static URL[] getResources(String... r) {
+    /**
+     * Resolve múltiplos recursos relativos ao helper.
+     *
+     * @param r caminhos de recursos
+     * @return vetor de URLs (posições sem recurso permanecem nulas)
+     */
+    private static URL[] getResources(final String... r) {
         URL[] rs = new URL[r != null ? r.length : 0];
 
         for (int i = 0; i < rs.length; i++) {

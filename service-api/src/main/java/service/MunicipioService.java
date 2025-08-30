@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * Serviço de aplicação para operações com {@link Municipio}.
  */
-public interface MunicipioService extends Service<Municipio, MunicipioException> {
+public interface MunicipioService extends Service<Integer, Municipio, MunicipioException> {
 
     /**
      * Lista os municípios pertencentes à UF informada.

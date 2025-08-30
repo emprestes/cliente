@@ -13,10 +13,10 @@ import java.util.Properties;
  */
 public final class HsqlDBHelper {
 
-    private static Server HSQL_SERVER = new Server();
+    private static final Server HSQL_SERVER = new Server();
 
-    private static Path FILE_PROPERTIES = Paths.get("./conf/jdbc.properties").toAbsolutePath();
-    private static String KEY_DATABASE = "jdbc.database";
+    private static final Path FILE_PROPERTIES = Paths.get("./conf/jdbc.properties").toAbsolutePath();
+    private static final String KEY_DATABASE = "jdbc.database";
 
     private HsqlDBHelper() {
         super();
@@ -52,7 +52,7 @@ public final class HsqlDBHelper {
 
             database = p.getProperty(KEY_DATABASE);
         } catch (Exception cause) {
-            cause.printStackTrace();
+            throw new RuntimeException("Problems loading file properties", cause);
         }
 
         return "hsqldb".equalsIgnoreCase(database);

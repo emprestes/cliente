@@ -5,10 +5,11 @@ import domain.Domain;
 /**
  * Contrato base para objetos de acesso a dados (DAO).
  *
- * @param <T> tipo da entidade de domínio manipulada
- * @param <E> tipo da exceção de persistência
+ * @param <PK> tipo do identificador da entidade
+ * @param <T>  tipo da entidade de domínio manipulada
+ * @param <E>  tipo da exceção de persistência
  */
-public interface DAO<T extends Domain<?, ? extends Throwable>, E extends Throwable> {
+public interface DAO<PK, T extends Domain<PK, E>, E extends Throwable> {
 
     /**
      * Insere uma nova entidade no repositório.

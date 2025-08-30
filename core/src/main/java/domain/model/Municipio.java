@@ -175,10 +175,9 @@ public class Municipio extends Entidade<Integer, MunicipioException> implements 
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Municipio)) {
+        if (!(obj instanceof Municipio other)) {
             return false;
         }
-        Municipio other = (Municipio) obj;
         if (nome == null) {
             if (other.nome != null) {
                 return false;
@@ -201,15 +200,6 @@ public class Municipio extends Entidade<Integer, MunicipioException> implements 
         m.setUf(uf);
 
         return m;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    protected void finalize() throws Throwable {
-        nome = null;
-        uf = null;
-
-        super.finalize();
     }
 
     /** {@inheritDoc} */
